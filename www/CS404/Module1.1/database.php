@@ -17,7 +17,7 @@ function connectToDatabase($databaseName) {
   return $db;
 }
 
-function simpleQuery($db, $query) {
+function simpleQuery($db, $query, $storeResult = TRUE) {
   // Prepare the query
   if(!($stmt = $db->prepare($query))) {
     if (!DBDeets::DB_SILENT_FAIL) {
@@ -35,7 +35,7 @@ function simpleQuery($db, $query) {
   }
 
   // Store the results for SELECT queries
-  if(strpos($query, 'SELECT') !== false) {
+  if($storeResult && strpos($query, 'SELECT') !== false) {
     $stmt->store_result();
   }
 
@@ -43,7 +43,7 @@ function simpleQuery($db, $query) {
   return $stmt;
 }
 
-function simpleQueryParam($db, $query, $ptype, &$param) {
+function simpleQueryParam($db, $query, $ptype, &$param, $storeResult = TRUE) {
   // Prepare the query
   if(!($stmt = $db->prepare($query))) {
     if (!DBDeets::DB_SILENT_FAIL) {
@@ -69,7 +69,7 @@ function simpleQueryParam($db, $query, $ptype, &$param) {
   }
 
   // Store the results for SELECT queries
-  if(strpos($query, 'SELECT') !== false) {
+  if($storeResult && strpos($query, 'SELECT') !== false) {
     $stmt->store_result();
   }
 
