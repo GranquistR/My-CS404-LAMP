@@ -1,3 +1,4 @@
+<!-- url: http://localhost:3000/CS404/Module1.1/movieBrowse.php -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -33,7 +34,7 @@
       </div>
 <?php
 // Establish the database connection
-include "database.php"; // TODO: <-- Don't forget to update this file with your username and password
+include "../../database.php"; // TODO: <-- Don't forget to update this file with your username and password
 $db = connectToDatabase("myFlix");
 if($db == NULL) {
   die("<p>Failed to connect to database.</p></body></html>\n");
