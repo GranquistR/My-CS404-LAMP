@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+    <style>
+      .thumb {
+        box-shadow: 2px 0px 5px gray;
+        margin: 10px;
+      }
+      .flex {
+        display: flex;
+        align-items: center;
+      }
+      .title {
+        font-weight: bold;
+        color: #136cc1;
+      }
+      .year {
+        margin-left: 15px;
+        color: gray;
+      }
+      .subTitle {
+        color: gray;
+      }
+      .rating {
+        margin-bottom: 15px;
+      }
+      .card {
+        margin: 20px;
+        padding: 20px;
+        border: 1px solid lightgrey;
+        border-radius: 10px;
+        box-shadow: 3px 3px 6px lightgrey;
+      }
+      .back {
+        margin: 20px;
+        padding: 10px;
+        border: 1px solid lightgrey;
+        border-radius: 10px;
+        box-shadow: 3px 3px 6px lightgrey;
+        width: fit-content;
+        transition: box-shadow 0.3s ease-in-out;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="back"
+      onmouseover="overCard(this)"
+      onmouseout="outCard(this)"
+      onclick="window.location.href='./'"
+    >
+      Go Back
+    </div>
+    <div id="target"></div>
+    <script>
+      function overCard(card) {
+        card.style.boxShadow = "5px 5px 10px gray";
+      }
+
+      function outCard(card) {
+        card.style.boxShadow = "3px 3px 6px lightgray";
+      }
+
+      var param = window.location.href.split("?")[1];
+
+      const cards = document.querySelector("#target");
+      //get and insert data
+      fetch(`./movieDetails.php?${param}`)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          const card = document.createElement("div");
+          card.innerHTML = `
+          <div class="card">
+            <div class="row">
+              <div class="flex">
+                <img
+                  class="thumb"
+                  src="./thumbs/${data.image}"
+                  alt="${data.title}"
+                  height="320px"
+                />
+                <div class="col">
+                  <div class="row">
+                    <div class="flex">
+                      <p class="title">${data.title}</p>
+                      <p class="year">(${data.year})</p>
+                    </div>
+                  </div>
+
+                  <p class="subTitle">${data.rated} | ${data.genres}</p>
+
+                  <div class="row">
+                    <div class="flex rating">
+                      <img src="./icons/star.jpg" alt="stars" height="20px" />
+                      <div>${data.imdbrating}</div>
+                    </div>
+                  </div>
+
+                  <p>${data.description}</p>
+
+                  <p class="subTitle">Stars: ${data.actors}</p>
+                  <p class="subTitle">Directors: ${data.directors}</p>
+                  <p class="subTitle">Writers: ${data.writers}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+           
+          `;
+          cards.appendChild(card);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          alert("Fetch failed. Check console for details.");
+        });
+    </script>
+    <!-- Bootstrap JS (with popper integerated) -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

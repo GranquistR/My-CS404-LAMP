@@ -20,7 +20,7 @@
       .movieSummary {
         border: 1px solid lightgrey;
         border-radius: 10px;
-        box-shadow: 3px 3px 6px gray;
+        box-shadow: 3px 3px 6px lightgray;
         transition: box-shadow 0.3s ease-in-out;
         text-align: center;
         padding: 5px;
@@ -59,7 +59,7 @@
       }
 
       function outCard(card) {
-        card.style.boxShadow = "3px 3px 6px gray";
+        card.style.boxShadow = "3px 3px 6px lightgray";
       }
 
       const cards = document.querySelector("#cards");
@@ -79,7 +79,7 @@
                         onmouseover="overCard(this)"
                         onmouseout="outCard(this)"
                     >
-                        <a href="movieDetails.php?movieID=${element.id}">
+                        <a href="movieDetails.html?movieID=${element.id}">
                         <span class="summaryTitle">${element.title}</span>
                         <img
                             src="./thumbs/${element.image}"

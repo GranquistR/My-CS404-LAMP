@@ -7,8 +7,8 @@ if(isset($_GET['movieID']))
   $movieID = $_GET['movieID'];
 
   // 1. Connect to the database
-  include "database.php";
-  $db = connectToDatabase("myflix");
+  include "../../database.php";
+  $db = connectToDatabase("MyFlix");
   if ($db->connect_error) {
     http_response_code(500);
     $message = array("error"=>TRUE, "message"=>"Failed to connect to database.");
