@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: #1d1e1f;
+        color: white;
+        font-size: 150%;
+      }
+      .card {
+        border: 1px solid gray;
+        border-radius: 10px;
+        transition: box-shadow 0.3s ease-in-out;
+        padding: 20px;
+        margin-top: 10px;
+        margin-bottom: 15px;
+        vertical-align: bottom;
+        background-color: #343638;
+        padding-bottom: 40px;
+        font-family: monospace;
+      }
+      .rating {
+        font-size: 2em;
+        margin-right: 20px;
+        color: #f1c40f;
+      }
+
+      .main {
+        display: flex;
+        align-items: center;
+      }
+      .outof {
+        font-size: 0.5em;
+        margin-left: 5px;
+      }
+      .content {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid gray;
+      }
+      .credits {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid gray;
+        padding-left: 100px;
+      }
+      a {
+        font-size: 70%;
+        color: white;
+        text-decoration: none;
+        margin: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="/CS404/Module1.2">Go Back</a>
+    <div id="target"></div>
+    <script>
+      var param = window.location.href.split("?")[1];
+      if (!Number.isInteger(parseInt(param))) {
+        window.location.href = "/CS404/Module1.2/";
+      }
+      var ID = parseInt(param);
+
+      const target = document.querySelector("#target");
+      //get and insert data
+      fetch("./GetBoardGames.php?ID=" + ID)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          const page = document.createElement("div");
+          page.innerHTML = `
+          <div class="card">
+            <div class="main">
+                <div class="rating">
+                &nbsp;${data[0].BGG_Rating}
+                <div class="outof">out&nbsp;of</div>
+                &nbsp;10
+                </div>
+                <div class="title">
+                <h1 style="margin-bottom: 0">${data[0].Name}</h1>
+                <div class="description">
+                    ${data[0].Description}
+                </div>
+                <br />
+                <div>Release Year:${data[0].YearReleased}</div>
+                </div>
+            </div>
+            <div class="content">
+                <div>
+                <h2>${data[0].MinPlayers}-${data[0].MaxPlayers} Player</h2>
+                <div>Possible Players</div>
+                </div>
+                <div>
+                <h2>${data[0].MinPlayTime}-${data[0].MaxPlayTime} Min</h2>
+                <div>Playing Time</div>
+                </div>
+                <div>
+                <h2>${data[0].MinAge} Years</h2>
+                <div>Minimum Age</div>
+                </div>
+                <div>
+                <h2>${data[0].GameWeight}/5 Weight</h2>
+                <div>'Complexity' rating</div>
+                </div>
+            </div>
+
+            <div class="credits">
+                <div>
+                Designers: ${data[0].Designers}
+                <br />
+                <br />
+                Publishers: ${data[0].Publishers}
+                <br />
+                <br />
+                Artists: ${data[0].Artists}
+                </div>
+            </div>
+            </div>
+          `;
+          target.appendChild(page);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          alert("Fetch failed. Check console for details.");
+        });
+    </script>
+  </body>
+</html>
