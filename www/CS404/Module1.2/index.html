@@ -16,7 +16,7 @@
       .Summary {
         border: 1px solid gray;
         border-radius: 10px;
-        transition: box-shadow 0.3s ease-in-out;
+        transition: 0.3s ease-in-out;
         text-align: center;
         padding: 10px;
         margin-bottom: 15px;
@@ -29,19 +29,43 @@
         color: white;
         text-decoration: none;
       }
-
       body {
         background-color: #1d1e1f;
         color: white;
+      }
+      .button {
+        background-color: #343638;
+        border: 1px solid gray;
+        border-radius: 10px;
+        transition: 0.3s ease-in-out;
+        text-align: center;
+        padding: 10px;
+        vertical-align: bottom;
+        font-family: monospace;
+        cursor: pointer;
+        width: fit-content;
+        float: right;
+        margin: 40px;
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <div class="row">
-        <div class="pb-2 mt-4 mb-2 border-bottom" style="width: 100%">
+      <div class="row border-bottom">
+        <div class="col pb-2 mt-4 mb-2" style="width: 100%">
           <h1>TableTop Games Browser</h1>
           Click on a game below for more information.
+        </div>
+
+        <div class="col">
+          <div
+            class="button"
+            onmouseover="overCard(this)"
+            onmouseout="outCard(this)"
+            onclick="window.location.href = '/CS404/Module1.2/AddGame.html'"
+          >
+            Add New Game
+          </div>
         </div>
       </div>
       <!-- Cards -->
@@ -70,7 +94,6 @@
             const card = document.createElement("div");
             card.classList.add("col-sm-6", "col-md-4", "col-lg-3");
             card.innerHTML = `
-
                       <div
                           class="Summary"
                           onmouseover="overCard(this)"
@@ -81,8 +104,8 @@
                           <img
                               src="./thumbs/${element.ImageURL}"
                               alt="${element.Name}"
+                              style="max-width: 100%;"
                               height="250px"
-                              width="250px"
                           /> </a
                           ><br />
                           <span class="summaryInfo">${element.Description}<br />${element.YearReleased}, ${element.BGG_Rating}/10</span>
