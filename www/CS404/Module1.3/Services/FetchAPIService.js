@@ -9,7 +9,6 @@ export default class FetchAPIService {
       if (!response.ok) {
         throw new Error("Network response was not ok.");
       }
-      console.log("FetchAPIService: ", response);
     } catch (error) {
       console.error("Network Error in FetchAPI Service: ", error);
       throw error;
@@ -37,7 +36,6 @@ export default class FetchAPIService {
       if (!response.ok) {
         throw new Error("Network response was not ok.");
       }
-      console.log("FetchAPIService: ", response);
     } catch (error) {
       console.error("Network Error in FetchAPI Service: ", error);
       throw error;

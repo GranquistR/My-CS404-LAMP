@@ -15,4 +15,12 @@ export default class TableTopService {
       return data;
     });
   }
+  static async AddGame(game) {
+    console.log(game);
+    return FetchAPIService.post("../Controllers/AddBoardGame.php", game).then(
+      (data) => {
+        return data;
+      }
+    );
+  }
 }

@@ -47,9 +47,77 @@ if ($Publishers == NULL) $missingFields[] = 'Publishers';
 if ($ImageURL == NULL) $missingFields[] = 'ImageURL';
 
 // validate not null fields
-if ($Name == NULL || $Description == NULL || $YearReleased == NULL || $BGG_Rating == NULL || $MinPlayers == NULL || $MaxPlayers == NULL || $MinPlayTime == NULL || $MaxPlayTime == NULL || $MinAge == NULL || $GameWeight == NULL || $Designers == NULL || $Artists == NULL || $Publishers == NULL || $ImageURL == NULL) {
-  http_response_code(400);
-  $message = array("error"=>TRUE, "message"=>"Missing required fields: " . implode(', ', $missingFields));
+if (!empty($missingFields)) {
+  $message = array("status"=>"Failure", "message"=>"Missing required fields: " . implode(', ', $missingFields));
+  die(json_encode($message));
+}
+
+//More validation
+if (!is_numeric($YearReleased)) {
+  $message = array("status"=>"Failure", "message"=>"YearReleased must be a number");
+  die(json_encode($message));
+}
+
+if (!is_numeric($BGG_Rating)) {
+  $message = array("status"=>"Failure", "message"=>"BGG_Rating must be a number");
+  die(json_encode($message));
+}
+
+if (!is_numeric($MinPlayers)) {
+  $message = array("status"=>"Failure", "message"=>"MinPlayers must be a number");
+  die(json_encode($message));
+}
+
+if (!is_numeric($MaxPlayers)) {
+  $message = array("status"=>"Failure", "message"=>"MaxPlayers must be a number");
+  die(json_encode($message));
+}
+
+if (!is_numeric($MinPlayTime)) {
+  $message = array("status"=>"Failure", "message"=>"MinPlayTime must be a number");
+  die(json_encode($message));
+}
+
+if (!is_numeric($MaxPlayTime)) {
+  $message = array("status"=>"Failure", "message"=>"MaxPlayTime must be a number");
+  die(json_encode($message));
+}
+
+if (!is_numeric($MinAge)) {
+  $message = array("status"=>"Failure", "message"=>"MinAge must be a number");
+  die(json_encode($message));
+}
+
+if (!is_numeric($GameWeight)) {
+  $message = array("status"=>"Failure", "message"=>"GameWeight must be a number");
+  die(json_encode($message));
+}
+
+//check if any negative numbers
+if ($YearReleased < 0 || $BGG_Rating < 0 || $MinPlayers < 0 || $MaxPlayers < 0 || $MinPlayTime < 0 || $MaxPlayTime < 0 || $MinAge < 0 || $GameWeight < 0) {
+  $message = array("status"=>"Failure", "message"=>"positive numbers only!");
+  die(json_encode($message));
+}
+
+// BGG_Rating and game weight must be between 0 and 10
+if ($BGG_Rating < 0 || $BGG_Rating > 10) {
+  $message = array("status"=>"Failure", "message"=>"BGG_Rating must be between 0 and 10");
+  die(json_encode($message));
+}
+
+if ($GameWeight < 0 || $GameWeight > 5) {
+  $message = array("status"=>"Failure", "message"=>"GameWeight must be between 0 and 5");
+  die(json_encode($message));
+}
+
+//min cant be greater than max
+if ($MinPlayers > $MaxPlayers) {
+  $message = array("status"=>"Failure", "message"=>"MinPlayers must be less than MaxPlayers");
+  die(json_encode($message));
+}
+
+if ($MinPlayTime > $MaxPlayTime) {
+  $message = array("status"=>"Failure", "message"=>"MinPlayTime must be less than MaxPlayTime");
   die(json_encode($message));
 }
 
@@ -66,7 +134,8 @@ if($stmt->execute() === FALSE) {
 }
 
 // Return the data as a JSON object
-echo json_encode("Success");
+$message = array("status"=>"Success", "message"=>"Successfully added board game.");
+die(json_encode($message));
 
 // Close the database connection
 $stmt->close();

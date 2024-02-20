@@ -12,107 +12,21 @@
       rel="stylesheet"
       crossorigin="anonymous"
     />
-    <style>
-      .Summary {
-        border: 1px solid gray;
-        border-radius: 10px;
-        transition: 0.3s ease-in-out;
-        text-align: center;
-        padding: 10px;
-        margin-bottom: 15px;
-        vertical-align: bottom;
-        background-color: #343638;
-        padding-bottom: 40px;
-        font-family: monospace;
-      }
-      .Summary a {
-        color: white;
-        text-decoration: none;
-      }
-      body {
-        background-color: #1d1e1f;
-        color: white;
-      }
-      .button {
-        background-color: #343638;
-        border: 1px solid gray;
-        border-radius: 10px;
-        transition: 0.3s ease-in-out;
-        text-align: center;
-        padding: 10px;
-        vertical-align: bottom;
-        font-family: monospace;
-        cursor: pointer;
-        width: fit-content;
-        float: right;
-        margin: 40px;
-      }
-      .addCard {
-        height: 389px !important;
-        width: 304px;
-        display: flex;
-        align-items: center;
-      }
 
-      /* MODAL STYLE */
-      .modal-content {
-        background-color: #343638;
-        color: white;
-      }
+    <!-- index.css -->
+    <link rel="stylesheet" href="./index.css" />
 
-      .card {
-        border: 1px solid gray;
-        color: white;
-        border-radius: 10px;
-        transition: 0.3s ease-in-out;
-        padding: 20px;
-        margin-top: 10px;
-        margin-bottom: 15px;
-        vertical-align: bottom;
-        background-color: #343638;
-        padding-bottom: 20px;
-        font-family: monospace;
-      }
-      .rating {
-        font-size: 2em;
-        margin-right: 20px;
-        color: #f1c40f;
-        border: solid 1px #f1c40f;
-        border-radius: 100%;
-        padding: 10px;
-      }
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 
-      .main {
-        display: flex;
-        align-items: center;
-      }
-      .content {
-        display: flex;
-        justify-content: space-around;
-        margin-top: 20px;
-        padding-top: 20px;
-        border-top: 1px solid gray;
-      }
-      .credits {
-        margin-top: 20px;
-        margin-left: 100px;
-      }
-      a {
-        font-size: 70%;
-        color: white;
-        text-decoration: none;
-        margin: 20px;
-      }
-      .ratingPart {
-        text-align: center;
-      }
-      img {
-        margin-right: 10px;
-      }
-    </style>
+    <!-- Bootstrap JS (with popper integerated) -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
-    <!-- Modal -->
+    <!-- More Details Modal -->
     <div
       class="modal fade"
       id="gameModal"
@@ -123,7 +37,9 @@
       <div class="modal-dialog modal-xl">
         <div class="modal-content">
           <div class="modal-header border-0">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Failed to get. Try again later!
+            </h1>
             <button
               type="button"
               class="btn-close btn-close-white"
@@ -133,6 +49,132 @@
             ></button>
           </div>
           <div class="modal-body border-0"></div>
+          <div class="modal-footer border-0">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Game Modal -->
+    <div
+      class="modal fade"
+      id="addModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header border-0">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Add a new game
+            </h1>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              color="white"
+            ></button>
+          </div>
+          <div class="modal-body border-0">
+            <div class="card">
+              <h1>Add Tabletop Game</h1>
+              <div class="container">
+                <div class="form-group">
+                  <label for="name">Name (max 255 characters)</label>
+                  <input type="text" class="form-control" id="name" />
+                </div>
+                <div class="form-group">
+                  <label for="description"
+                    >Description (max 65,000~ characters)</label
+                  >
+                  <textarea
+                    class="form-control"
+                    id="description"
+                    rows="3"
+                  ></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="image_url">Image URL (max 1024 characters)</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="image_url"
+                    value="game1.jpg"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="bgg_rating">BGG Rating (0 to 10)</label>
+                  <input type="text" class="form-control" id="bgg_rating" />
+                </div>
+                <div class="form-group">
+                  <label for="game_weight">Game Weight (0 to 5)</label>
+                  <input type="text" class="form-control" id="game_weight" />
+                </div>
+                <div class="form-group">
+                  <label for="max_play_time"
+                    >Max Play Time (positive integer)</label
+                  >
+                  <input type="text" class="form-control" id="max_play_time" />
+                </div>
+                <div class="form-group">
+                  <label for="min_play_time"
+                    >Min Play Time (positive integer)</label
+                  >
+                  <input type="text" class="form-control" id="min_play_time" />
+                </div>
+                <div class="form-group">
+                  <label for="max_players"
+                    >Max Players (positive integer)</label
+                  >
+                  <input type="text" class="form-control" id="max_players" />
+                </div>
+                <div class="form-group">
+                  <label for="min_players"
+                    >Min Players (positive integer)</label
+                  >
+                  <input type="text" class="form-control" id="min_players" />
+                </div>
+                <div class="form-group">
+                  <label for="min_age">Min Age (positive integer)</label>
+                  <input type="text" class="form-control" id="min_age" />
+                </div>
+                <div class="form-group">
+                  <label for="designers"
+                    >Designers (max 65,000~ characters)</label
+                  >
+                  <input type="text" class="form-control" id="designers" />
+                </div>
+                <div class="form-group">
+                  <label for="artists">Artists (max 65,000~ characters)</label>
+                  <input type="text" class="form-control" id="artists" />
+                </div>
+                <div class="form-group">
+                  <label for="publishers"
+                    >Publishers (max 65,000~ characters)</label
+                  >
+                  <input type="text" class="form-control" id="publishers" />
+                </div>
+                <div class="form-group">
+                  <label for="year_released"
+                    >Year Released (positive integer)</label
+                  >
+                  <input type="text" class="form-control" id="year_released" />
+                </div>
+                <button class="btn btn-primary" onclick="SubmitAddForm()">
+                  Submit
+                </button>
+              </div>
+            </div>
+          </div>
           <div class="modal-footer border-0">
             <button
               type="button"
@@ -162,6 +204,7 @@
             class="Summary addCard"
             onmouseover="overCard(this)"
             onmouseout="outCard(this)"
+            onclick="$('#addModal').modal('show')"
           >
             <h1>Add a new game</h1>
           </div>
@@ -184,14 +227,5 @@
 
       const cards = document.querySelector("#cards");
     </script>
-
-    <!-- JQuery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-
-    <!-- Bootstrap JS (with popper integerated) -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      crossorigin="anonymous"
-    ></script>
   </body>
 </html>
