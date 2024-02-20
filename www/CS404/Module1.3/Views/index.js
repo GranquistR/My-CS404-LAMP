@@ -39,55 +39,55 @@ function showGameInfo(id) {
     const modalTitle = document.querySelector(".modal-title");
     console.log(modalTitle);
     modalTitle.innerHTML = `
-    <div>${game[0].Name}</div>
+    <div>${game.Name}</div>
     `;
 
     const modalBody = document.querySelector(".modal-body");
     modalBody.innerHTML = `
     <div class="card">
     <div class="main">
-      <img src="../thumbs/${game[0].ImageURL}" alt="Game" height="200px"/>
+      <img src="../thumbs/${game.ImageURL}" alt="Game" height="200px"/>
         <div class="rating">
-          <div class="ratingPart">${game[0].BGG_Rating}</div>
+          <div class="ratingPart">${game.BGG_Rating}</div>
           <div class="ratingPart">out of</div>
           <div class="ratingPart">10</div>
         </div>
         <div class="title">
-        <h1>${game[0].Name}</h1>
+        <h1>${game.Name}</h1>
         <div class="description">
-            ${game[0].Description}
+            ${game.Description}
         </div>
         <br />
-        <div>Release Year:${game[0].YearReleased}</div>
+        <div>Release Year:${game.YearReleased}</div>
         </div>
         <div>
           <h2 class="credits">Credits</h2>
           <div class="credits">
-            Designers: ${game[0].Designers}
+            Designers: ${game.Designers}
           </div>
           <div class="credits">
-            Publishers: ${game[0].Publishers}
+            Publishers: ${game.Publishers}
           </div>
           <div class="credits">
-            Artists: ${game[0].Artists}
+            Artists: ${game.Artists}
           </div>
       </div>
     </div>
     <div class="content">
         <div>
-        <h2>${game[0].MinPlayers}-${game[0].MaxPlayers} Player</h2>
+        <h2>${game.MinPlayers}-${game.MaxPlayers} Player</h2>
         <div>Possible Players</div>
         </div>
         <div>
-        <h2>${game[0].MinPlayTime}-${game[0].MaxPlayTime} Min</h2>
+        <h2>${game.MinPlayTime}-${game.MaxPlayTime} Min</h2>
         <div>Playing Time</div>
         </div>
         <div>
-        <h2>${game[0].MinAge} Years</h2>
+        <h2>${game.MinAge} Years</h2>
         <div>Minimum Age</div>
         </div>
         <div>
-        <h2>${game[0].GameWeight}/5 Weight</h2>
+        <h2>${game.GameWeight}/5 Weight</h2>
         <div>'Complexity' rating</div>
         </div>
     </div>
